@@ -20,11 +20,26 @@
       crossorigin
     ></script>
     <script type="text/babel">
-      // 男
-      const MenList = ["Victor", "Wyatt", "Xavier", "Yancey", "Zeus"];
-      const WomenList = ["Amy", "Bertha", "Clare", "Diane", "Erika"];
-      // 女
-      ReactDOM.render(<h1>hello world</h1>, document.getElementById("app"));
+      // 男生清單
+      const menList = [
+        { name: "Victor", preference: [1, 0, 3, 4, 2] },
+        { name: "Wyatt", preference: [3, 1, 0, 2, 4] },
+        { name: "Xavier", preference: [1, 4, 2, 3, 0] },
+        { name: "Yancey", preference: [0, 3, 2, 1, 4] },
+        { name: "Zeus", preference: [1, 3, 0, 4, 2] },
+      ];
+      // 女生清單
+      const womenList = [
+        { name: "Amy", preference: [4, 0, 1, 3, 2] },
+        { name: "Bertha", preference: [2, 1, 3, 0, 4] },
+        { name: "Clare", preference: [1, 2, 3, 4, 0] },
+        { name: "Diane", preference: [0, 4, 3, 2, 1] },
+        { name: "Erika", preference: [3, 1, 4, 2, 0] },
+      ];
+      ReactDOM.render(
+        <h1>{menList[1]["name"]}</h1>,
+        document.getElementById("app")
+      );
     </script>
   </body>
 </html>
