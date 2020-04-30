@@ -37,6 +37,19 @@
         { name: "Erika", preference: [3, 1, 4, 2, 0] },
       ];
 
+      /**
+      function
+      **/
+
+      // 表白
+      function Proposes() {}
+      // 接受
+      function Accept() {}
+      // 拒絕
+      function Reject() {}
+      // 分手
+      function Dump() {}
+
       // 產生配對資料
       function CreatePairData(props) {
         const matchData = props.matchData;
@@ -55,11 +68,58 @@
         });
       }
 
+      /**
+      class
+      **/
+
+      // 逐步執行
+      class NextStep extends React.Component {
+        constructor(props) {
+          super(props);
+          this.AppendLog = this.AppendLog.bind(this);
+        }
+        AppendLog(msg) {
+          this.props.onAppendLog(msg);
+        }
+        render() {
+          return (
+            <button type="button" onClick={() => this.AppendLog("test")}>
+              Step
+            </button>
+          );
+        }
+      }
+
       // 配對的對象
       class PairTD extends React.Component {
         render() {
           // TODO 加上背景色
           return <td>{this.props.name}</td>;
+        }
+      }
+
+      // 執行過程紀錄
+      class LogText extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = { value: "" };
+        }
+
+        // 增加紀錄
+        appendLog(msg) {
+          this.setState({ value: this.state.value + msg });
+        }
+        alertMessage() {
+          console.log("alert");
+        }
+
+        render() {
+          return (
+            <div>
+              <h1>執行過程</h1>
+              <textarea rows="4" cols="50" value={this.state.value} />
+            </div>
+          );
         }
       }
 
@@ -70,15 +130,14 @@
           let TableHeader = this.props.data.map((people, index) => {
             return <th>{index + 1}</th>;
           });
-
           return (
             <div>
               <h1>{this.props.title}</h1>
               <table border="1">
                 <thead>
                   <tr>
-                    <th />
-                    <th />
+                    <th>Id</th>
+                    <th>Name</th>
                     {/* 欄位編號 */}
                     {TableHeader}
                   </tr>
@@ -95,21 +154,39 @@
         }
       }
 
-      function AllData() {
-        return (
-          <div>
-            <PairTable
-              title="男生期望表"
-              data={menList}
-              matchData={womenList}
-            />
-            <PairTable
-              title="女生期望表"
-              data={womenList}
-              matchData={menList}
-            />
-          </div>
-        );
+      class AllData extends React.Component {
+        constructor(props) {
+          super(props);
+          this.AppendLog = this.AppendLog.bind(this);
+          this.state = { Log: "" }; // 執行紀錄
+        }
+        AppendLog(msg) {
+          this.setState({ Log: this.state.Log + msg + "\r\n" });
+        }
+        render() {
+          return (
+            <div>
+              <PairTable
+                title="男生期望表"
+                data={menList}
+                matchData={womenList}
+              />
+              <PairTable
+                title="女生期望表"
+                data={womenList}
+                matchData={menList}
+              />
+              <br />
+              {/* 逐步執行 */}
+              <NextStep onAppendLog={this.AppendLog} />
+              <br />
+              <br />
+              {/* 執行過程 */}
+              <h2>執行過程</h2>
+              <textarea rows="4" cols="50" value={this.state.Log} />
+            </div>
+          );
+        }
       }
 
       // React Render
