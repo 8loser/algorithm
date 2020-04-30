@@ -37,6 +37,26 @@
         { name: "Erika", preference: [3, 1, 4, 2, 0] },
       ];
 
+      // 產生配對資料
+      function CreatePairRow(props) {
+        return props.data.map((data, index) => {
+          const { name, preference } = data;
+          return (
+            <tr>
+              <td>{name}</td>
+              <CreatePairColumn preference={preference} />
+            </tr>
+          );
+        });
+      }
+
+      function CreatePairColumn(props) {
+        // props.preference.map((number, index) => {
+
+        // });
+        return <td>col</td>;
+      }
+
       // 配對的對象
       class PairTD extends React.Component {
         render() {
@@ -48,7 +68,7 @@
       // 配對資料表
       class PairTable extends React.Component {
         render() {
-          // table header; 欄位編號
+          // table header; 根據資料長度產生欄位編號
           let TableHeader = this.props.data.map((people, index) => {
             return <th>{index + 1}</th>;
           });
@@ -60,18 +80,12 @@
                 <thead>
                   <tr>
                     <th />
+                    {/* 欄位編號 */}
                     {TableHeader}
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <PairTD name="test" />
-                    <td bgcolor="red">$100</td>
-                  </tr>
-                  <tr>
-                    <td>February</td>
-                    <td>$80</td>
-                  </tr>
+                  <CreatePairRow data={this.props.data} />
                 </tbody>
               </table>
             </div>
@@ -82,8 +96,8 @@
       function AllData() {
         return (
           <div>
-            <PairTable title="男生配對" data={menList} />
-            <PairTable title="女生配對" data={womenList} />
+            <PairTable title="男生配對" data={menList} matchData={womenList} />
+            <PairTable title="女生配對" data={womenList} matchData={menList} />
           </div>
         );
       }
