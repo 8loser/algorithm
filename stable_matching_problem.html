@@ -42,10 +42,7 @@
       **/
 
       // 表白
-      function Proposes() {
-        menList[0].name = "xvvv";
-        console.log(menList[0]);
-      }
+      function Proposes(props) {}
       // 接受
       function Accept() {}
       // 拒絕
@@ -77,10 +74,6 @@
 
       // 逐步執行
       class NextStep extends React.Component {
-        constructor(props) {
-          super(props);
-          this.AppendLog = this.AppendLog.bind(this);
-        }
         AppendLog(msg) {
           this.props.onAppendLog(msg);
         }
@@ -133,14 +126,10 @@
       }
 
       class MainClass extends React.Component {
-        constructor(props) {
-          super(props);
-          this.AppendLog = this.AppendLog.bind(this);
-          this.state = { Log: "" }; // 執行紀錄
-        }
-        AppendLog(msg) {
+        state = { Log: "" };
+        AppendLog = (msg) => {
           this.setState({ Log: this.state.Log + msg + "\r\n" });
-        }
+        };
         render() {
           return (
             <div>
@@ -157,7 +146,6 @@
               <br />
               {/* 逐步執行 */}
               <NextStep onAppendLog={this.AppendLog} />
-              <button onClick={Proposes}>test</button>
               <br />
               <br />
               {/* 執行過程 */}
