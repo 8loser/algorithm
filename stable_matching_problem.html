@@ -42,11 +42,12 @@
         const matchData = props.matchData;
         return props.data.map((data, index) => {
           const { name, preference } = data;
-          let preferenceName = preference.map((number, index) => {
+          let preferenceName = preference.map((number) => {
             return <td>{matchData[number].name}</td>;
           });
           return (
             <tr>
+              <td>{index + 1}</td>
               <td>{name}</td>
               {preferenceName}
             </tr>
@@ -77,6 +78,7 @@
                 <thead>
                   <tr>
                     <th />
+                    <th />
                     {/* 欄位編號 */}
                     {TableHeader}
                   </tr>
@@ -96,8 +98,16 @@
       function AllData() {
         return (
           <div>
-            <PairTable title="男生配對" data={menList} matchData={womenList} />
-            <PairTable title="女生配對" data={womenList} matchData={menList} />
+            <PairTable
+              title="男生期望表"
+              data={menList}
+              matchData={womenList}
+            />
+            <PairTable
+              title="女生期望表"
+              data={womenList}
+              matchData={menList}
+            />
           </div>
         );
       }
