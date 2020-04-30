@@ -42,7 +42,10 @@
       **/
 
       // 表白
-      function Proposes() {}
+      function Proposes() {
+        menList[0].name = "xvvv";
+        console.log(menList[0]);
+      }
       // 接受
       function Accept() {}
       // 拒絕
@@ -98,31 +101,6 @@
         }
       }
 
-      // 執行過程紀錄
-      class LogText extends React.Component {
-        constructor(props) {
-          super(props);
-          this.state = { value: "" };
-        }
-
-        // 增加紀錄
-        appendLog(msg) {
-          this.setState({ value: this.state.value + msg });
-        }
-        alertMessage() {
-          console.log("alert");
-        }
-
-        render() {
-          return (
-            <div>
-              <h1>執行過程</h1>
-              <textarea rows="4" cols="50" value={this.state.value} />
-            </div>
-          );
-        }
-      }
-
       // 配對資料表
       class PairTable extends React.Component {
         render() {
@@ -154,7 +132,7 @@
         }
       }
 
-      class AllData extends React.Component {
+      class MainClass extends React.Component {
         constructor(props) {
           super(props);
           this.AppendLog = this.AppendLog.bind(this);
@@ -179,6 +157,7 @@
               <br />
               {/* 逐步執行 */}
               <NextStep onAppendLog={this.AppendLog} />
+              <button onClick={Proposes}>test</button>
               <br />
               <br />
               {/* 執行過程 */}
@@ -190,7 +169,7 @@
       }
 
       // React Render
-      ReactDOM.render(<AllData />, document.getElementById("app"));
+      ReactDOM.render(<MainClass />, document.getElementById("app"));
     </script>
   </body>
 </html>
