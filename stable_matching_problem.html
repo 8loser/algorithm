@@ -76,13 +76,15 @@
       class NextStep extends React.Component {
         AppendLog(msg) {
           this.props.onAppendLog(msg);
-          this.props.onUpdateDataList();
+          menList[0].name = "test";
         }
         render() {
           return (
-            <button type="button" onClick={() => this.AppendLog("test")}>
-              Step
-            </button>
+            <div>
+              <button type="button" onClick={() => this.AppendLog("test")}>
+                Step
+              </button>
+            </div>
           );
         }
       }
@@ -127,19 +129,10 @@
       }
 
       class MainClass extends React.Component {
-        state = {
-          Log: "",
-          dataList: { menList: menList, womenList: womenList },
-        };
+        state = { Log: "" };
         // 增加執行步驟訊息
         AppendLog = (msg) => {
           this.setState({ Log: this.state.Log + msg + "\r\n" });
-        };
-        // 更新MenList
-        UpdateDataList = (data) => {
-          var temp = this.state.dataList;
-          temp.menList[0].name = "test";
-          this.setState({ dataList: temp });
         };
         render() {
           return (
@@ -156,10 +149,7 @@
               />
               <br />
               {/* 逐步執行 */}
-              <NextStep
-                onAppendLog={this.AppendLog}
-                onUpdateDataList={this.UpdateDataList}
-              />
+              <NextStep onAppendLog={this.AppendLog} />
               <br />
               <br />
               {/* 執行過程 */}
