@@ -22,19 +22,19 @@
     <script type="text/babel">
       // 男生清單
       const menList = [
-        { name: "Victor", preference: [1, 0, 3, 4, 2] },
-        { name: "Wyatt", preference: [3, 1, 0, 2, 4] },
-        { name: "Xavier", preference: [1, 4, 2, 3, 0] },
-        { name: "Yancey", preference: [0, 3, 2, 1, 4] },
-        { name: "Zeus", preference: [1, 3, 0, 4, 2] },
+        { id: 0, name: "Victor", preference: [1, 0, 3, 4, 2], state: 0 },
+        { id: 1, name: "Wyatt", preference: [3, 1, 0, 2, 4], state: 0 },
+        { id: 2, name: "Xavier", preference: [1, 4, 2, 3, 0], state: 0 },
+        { id: 3, name: "Yancey", preference: [0, 3, 2, 1, 4], state: 0 },
+        { id: 4, name: "Zeus", preference: [1, 3, 0, 4, 2], state: 0 },
       ];
       // 女生清單
       const womenList = [
-        { name: "Amy", preference: [4, 0, 1, 3, 2] },
-        { name: "Bertha", preference: [2, 1, 3, 0, 4] },
-        { name: "Clare", preference: [1, 2, 3, 4, 0] },
-        { name: "Diane", preference: [0, 4, 3, 2, 1] },
-        { name: "Erika", preference: [3, 1, 4, 2, 0] },
+        { id: 0, name: "Amy", preference: [4, 0, 1, 3, 2], state: 0 },
+        { id: 1, name: "Bertha", preference: [2, 1, 3, 0, 4], state: 0 },
+        { id: 2, name: "Clare", preference: [1, 2, 3, 4, 0], state: 0 },
+        { id: 3, name: "Diane", preference: [0, 4, 3, 2, 1], state: 0 },
+        { id: 4, name: "Erika", preference: [3, 1, 4, 2, 0], state: 0 },
       ];
 
       /**
@@ -76,6 +76,7 @@
       class NextStep extends React.Component {
         AppendLog(msg) {
           this.props.onAppendLog(msg);
+          this.props.onUpdateDataList();
         }
         render() {
           return (
@@ -126,9 +127,19 @@
       }
 
       class MainClass extends React.Component {
-        state = { Log: "" };
+        state = {
+          Log: "",
+          dataList: { menList: menList, womenList: womenList },
+        };
+        // 增加執行步驟訊息
         AppendLog = (msg) => {
           this.setState({ Log: this.state.Log + msg + "\r\n" });
+        };
+        // 更新MenList
+        UpdateDataList = (data) => {
+          var temp = this.state.dataList;
+          temp.menList[0].name = "test";
+          this.setState({ dataList: temp });
         };
         render() {
           return (
@@ -145,7 +156,10 @@
               />
               <br />
               {/* 逐步執行 */}
-              <NextStep onAppendLog={this.AppendLog} />
+              <NextStep
+                onAppendLog={this.AppendLog}
+                onUpdateDataList={this.UpdateDataList}
+              />
               <br />
               <br />
               {/* 執行過程 */}
