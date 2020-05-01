@@ -9,3 +9,9 @@ npm install -g live-server
 ```
 live-server
 ```
+
+# 備註
+
+考慮改用 Jupyter notebook 互動性佳
+
+https://towardsdatascience.com/interactive-spreadsheets-in-jupyter-32ab6ec0f4ff
